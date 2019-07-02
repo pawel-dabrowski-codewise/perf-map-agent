@@ -20,7 +20,10 @@ INCLUDE_DIRECTORIES(${JAVA_INCLUDE_PATH2})
 
 add_library(perfmap SHARED src/c/perf-map-agent.c src/c/perf-map-file.c)
 
-find_package(Java REQUIRED)
+find_package(Java COMPONENTS Development)
+if (NOT Java_Development_FOUND)
+    message(FATAL_ERROR "Java development tools not found.")
+endif()
 include(UseJava)
 
 set(CMAKE_JAVA_INCLUDE_PATH ${JAVA_INCLUDE_PATH}/../lib/tools.jar)
